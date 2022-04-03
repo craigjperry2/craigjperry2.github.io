@@ -24,12 +24,6 @@ module.exports = {
       },
       items: [
         {
-          type: 'doc',
-          docId: 'home',
-          position: 'left',
-          label: 'Home',
-        },
-        {
           href: 'https://github.com/craigjperry2',
           label: 'GitHub',
           position: 'right',
