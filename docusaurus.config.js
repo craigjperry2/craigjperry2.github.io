@@ -1,5 +1,11 @@
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-module.exports = {
+// @ts-check
+// Note: type annotations allow type checking and IDEs autocompletion
+
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   title: "Craig Perry's Notebook",
   tagline: 'My notes, published online so i can (usually) always access them!',
   url: 'https://www.craigjperry.com',
@@ -11,50 +17,94 @@ module.exports = {
   projectName: 'craigjperry2.github.io',
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
-  themeConfig: {
-    colorMode: {
-      defaultMode: 'light',
-      disableSwitch: true
-    },
-    navbar: {
-      title: "Craig Perry's Notebook",
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/android-chrome-512x512.png',
-      },
-      items: [
-        {
-          href: 'https://github.com/craigjperry2',
-          label: 'GitHub',
-          position: 'right',
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      // Replace with your project's social card
+      image: 'img/docusaurus-social-card.jpg',
+      navbar: {
+        title: "Craig Perry's Notebook",
+        logo: {
+          alt: 'My Site Logo',
+          src: 'img/android-chrome-512x512.png',
         },
-      ],
-    },
-    footer: {
-      style: 'light',
-      links: [],
-      copyright: `Copyright © ${new Date().getFullYear()} Craig Perry. Built with Docusaurus.`,
-    },
-    prism: {
-      theme: require('prism-react-renderer/themes/github')
-    },
-  },
+        items: [
+          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+          href: 'https://github.com/craigjperry2',
+            label: 'GitHub',
+            position: 'right',
+          },
+        ],
+      },
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'Notebook',
+                to: '/docs/',
+              },
+            ],
+          },
+          {
+            title: 'Social',
+            items: [
+              {
+                label: 'Stack Overflow',
+                href: 'https://stackoverflow.com/users/1593633/craigjperry',
+              },
+              {
+                label: 'Github',
+                href: 'https://www.githib.com/craigjperry2',
+              },
+              {
+                label: 'Twitter',
+                href: 'https://twitter.com/craigjperry2',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} Craig Perry. Built with Docusaurus.`,
+      },
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+      },
+    }),
   presets: [
     [
-      '@docusaurus/preset-classic',
-      {
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
         docs: {
-	  routeBasePath: '/',
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
             'https://github.com/craigjperry2/craigjperry2.github.io/edit/main/',
         },
-        blog: false,
+        blog: {
+          showReadingTime: true,
+          editUrl:
+            'https://github.com/craigjperry2/craigjperry2.github.io/edit/main/',
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      },
+      }),
     ],
   ],
 };
+
+module.exports = config;
