@@ -45,7 +45,7 @@ const config = {
             items: [
               {
                 label: 'Notebook',
-                to: '/docs/',
+                to: '/',
               },
             ],
           },
