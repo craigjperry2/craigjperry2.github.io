@@ -58,7 +58,7 @@ const config = {
               },
               {
                 label: 'Github',
-                href: 'https://www.githib.com/craigjperry2',
+                href: 'https://www.github.com/craigjperry2',
               },
               {
                 label: 'Twitter',
