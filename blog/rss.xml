@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>Craig Perry's Notebook Blog</title>
+        <link>https://www.craigjperry.com/blog</link>
+        <description>Craig Perry's Notebook Blog</description>
+        <lastBuildDate>Sun, 26 Mar 2023 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[Docusaurus Blog]]></title>
+            <link>https://www.craigjperry.com/blog/docusaurus-blog</link>
+            <guid>https://www.craigjperry.com/blog/docusaurus-blog</guid>
+            <pubDate>Sun, 26 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[I'm a note-taker and I've used Onenote to host & index them for years. It works]]></description>
+            <content:encoded><![CDATA[<p>I'm a note-taker and I've used Onenote to host &amp; index them for years. It works
+everywhere, suprisingly even on my linux desktop thanks to its progressive web
+app version. But sharing them can be a pain, a simple website would be better.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="docusaurus">Docusaurus<a href="#docusaurus" class="hash-link" aria-label="Direct link to Docusaurus" title="Direct link to Docusaurus">​</a></h2><p>I've been using docusaurus at <code>$DAYJOB</code> and it's pretty so-so as documentation
+tooling goes. For example, the native search options are uninspiring; either use
+Algolia's service (not suitable in my case) or use one of the plugins that
+integrates <a href="https://lunrjs.com" target="_blank" rel="noopener noreferrer">lunr</a>. I ended up making my own integration with
+another search service and Docusaurus made it easy to "swizzle" the SearchBar.</p><p>Docusarus's most useful feature is as a low-friction way to publish small React
+components. The sweet spot is where you need a splash of interactivity over
+mostly static data. E.g. a mini-YouTube for sharing a bunch of videos i recorded
+or a UI that lets a visitor keep track of and resume their progress through
+milestones in a larger HowTo Guide that they might not consume in one visit.</p><p>The docusaurus API has annoyingly changed a few times with version bumps. For
+example the way to access parts of react-router changed.</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="this-site">This Site<a href="#this-site" class="hash-link" aria-label="Direct link to This Site" title="Direct link to This Site">​</a></h2><p>And so this site exists as a playground for Docusaurus and as a place to
+publicly share my notes. This post exists only because i want to test-drive
+the blog feature which i've never had a use case for before.</p>]]></content:encoded>
+            <category>docusaurus</category>
+        </item>
+    </channel>
+</rss>

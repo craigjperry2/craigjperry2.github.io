@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcraigjperry_com=self.webpackChunkcraigjperry_com||[]).push([[2535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Docusaurus Blog","permalink":"/blog/docusaurus-blog"}]}')}}]);
