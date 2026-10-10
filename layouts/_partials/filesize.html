@@ -1,0 +1,11 @@
+{{- /* Formats a byte count as e.g. "2.4 MB" (SI units). Text such as "2.4 MB" is returned unchanged. */ -}}
+{{- $out := . -}}
+{{- if ne (printf "%T" .) "string" -}}
+  {{- $b := float . -}}
+  {{- $out = printf "%.0f B" $b -}}
+  {{- if ge $b 1e9 }}{{ $out = printf "%.1f GB" (div $b 1e9) -}}
+  {{- else if ge $b 1e6 }}{{ $out = printf "%.1f MB" (div $b 1e6) -}}
+  {{- else if ge $b 1e3 }}{{ $out = printf "%.0f kB" (div $b 1e3) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

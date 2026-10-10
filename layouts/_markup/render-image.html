@@ -1,0 +1,18 @@
+{{- /*
+  Markdown images, e.g. ![A soldered board](board.jpg "Optional caption").
+  Photos stored next to the page are resized to web-sized WebP copies with a srcset;
+  the original is never published. A photo on a line of its own becomes a <figure>
+  and its title becomes the caption.
+*/ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $img := "" -}}
+{{- if not $u.IsAbs }}{{ $img = .PageInner.Resources.Get $u.Path }}{{ end -}}
+{{- if .IsBlock }}<figure>{{ end -}}
+{{- if and $img (reflect.IsImageResourceProcessable $img) -}}
+  {{- $sm := $img.Resize (printf "%dx webp" (int (math.Min $img.Width 720))) -}}
+  {{- $lg := $img.Resize (printf "%dx webp" (int (math.Min $img.Width 1440))) -}}
+  <img src="{{ $lg.RelPermalink }}" srcset="{{ $sm.RelPermalink }} {{ $sm.Width }}w, {{ $lg.RelPermalink }} {{ $lg.Width }}w" sizes="(min-width: 46rem) 42rem, 100vw" width="{{ $lg.Width }}" height="{{ $lg.Height }}" alt="{{ .PlainText }}" loading="lazy" decoding="async">
+{{- else -}}
+  <img src="{{ with $img }}{{ .RelPermalink }}{{ else }}{{ $.Destination }}{{ end }}" alt="{{ .PlainText }}" loading="lazy" decoding="async">
+{{- end -}}
+{{- if .IsBlock }}{{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}</figure>{{ end -}}

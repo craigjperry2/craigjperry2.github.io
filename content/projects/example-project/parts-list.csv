@@ -1,0 +1,4 @@
+part,qty,notes
+ESP32 dev board,1,
+BME280 sensor,1,I2C
+10k resistor,2,pull-ups

@@ -1,0 +1,6 @@
+services:
+  site:
+    command: hugo server --buildDrafts --bind 127.0.0.1 --port "$PORT" --baseURL "$PUBLIC_URL" --appendPort=false --liveReloadPort 443
+    port: 1313
+    portal:
+      title: Site preview (drafts included)

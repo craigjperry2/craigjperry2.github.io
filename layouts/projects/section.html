@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="prose">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+</div>
+{{ with .Pages.ByDate.Reverse }}
+<ul class="cards cards--grid">
+  {{ range . }}<li>{{ partial "project-card.html" . }}</li>{{ end }}
+</ul>
+{{ else }}
+<p class="empty">Nothing here yet.</p>
+{{ end }}
+{{ end }}

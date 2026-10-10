@@ -1,0 +1,52 @@
+baseURL = "https://www.craigjperry.com/"
+locale = "en-GB"
+title = "Craig Perry"
+enableRobotsTXT = true
+# Blog topics are a plain front matter field, not a taxonomy, so no tag/category pages are generated.
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  description = "Craig Perry's personal site: writing and projects."
+  github = "https://github.com/craigjperry2"
+
+[permalinks.page]
+  blog = "/blog/:slug/"
+  projects = "/projects/:slug/"
+
+# Lets files be named 2026-10-10-my-post.md: the date comes from the filename and the
+# slug from the rest, so front matter only needs a title.
+[frontmatter]
+  date = [":filename", ":default"]
+
+[menus]
+  [[menus.main]]
+    name = "Blog"
+    pageRef = "/blog"
+    weight = 10
+  [[menus.main]]
+    name = "Projects"
+    pageRef = "/projects"
+    weight = 20
+
+[markup.highlight]
+  noClasses = false
+
+# Lets the image render hook turn a photo on its own line into a <figure> with a caption.
+[markup.goldmark.parser]
+  wrapStandAloneImageWithinParagraph = false
+
+[imaging]
+  resampleFilter = "Lanczos"
+  anchor = "Smart"
+  [imaging.webp]
+    quality = 78
+
+# Only publish bundle files a template links to, so original full-size photos never ship;
+# only the resized copies made by the gallery and image hook do.
+[[cascade]]
+  [cascade.build]
+    publishResources = false
+
+[outputs]
+  home = ["html", "rss"]
+  section = ["html", "rss"]

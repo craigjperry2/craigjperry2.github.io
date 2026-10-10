@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Prepares a fresh Amp orb: installs the pinned Hugo and warms the image cache.
+# Idempotent; a warm re-run only checks the Hugo version and rebuilds from cache.
+# ~/.local/bin is already on PATH for orb login shells and services.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+echo "==> Install Hugo into ~/.local/bin"
+time scripts/install-hugo "$HOME/.local/bin"
+
+echo "==> Build site (drafts included) to warm resources/_gen"
+out="$(mktemp -d)"
+time "$HOME/.local/bin/hugo" --gc --buildDrafts --quiet --destination "$out"
+rm -rf "$out"

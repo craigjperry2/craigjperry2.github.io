@@ -1,0 +1,62 @@
+{{- /*
+  Downloads listed in front matter:
+    files:
+      - title: Enclosure (STL)
+        url: https://example.com/enclosure.stl
+        size: 2400000        # bytes, or text such as "2.4 MB"; optional
+  A relative url (e.g. manual.pdf) points at a file in the project's folder, and its
+  size is filled in automatically. The icon is chosen from the file extension.
+*/ -}}
+{{ with .Params.files }}
+{{ $kinds := dict
+  "pdf" "document" "doc" "document" "docx" "document" "odt" "document" "rtf" "document" "txt" "document" "md" "document"
+  "xls" "sheet" "xlsx" "sheet" "ods" "sheet" "csv" "sheet"
+  "zip" "archive" "tar" "archive" "gz" "archive" "tgz" "archive" "xz" "archive" "bz2" "archive" "7z" "archive" "rar" "archive"
+  "jpg" "image" "jpeg" "image" "png" "image" "gif" "image" "webp" "image" "svg" "image" "tif" "image" "tiff" "image"
+  "mp3" "audio" "wav" "audio" "flac" "audio" "ogg" "audio" "m4a" "audio"
+  "mp4" "video" "mov" "video" "webm" "video" "mkv" "video"
+  "stl" "model" "step" "model" "stp" "model" "3mf" "model" "obj" "model" "f3d" "model" "scad" "model" "dxf" "model"
+  "py" "code" "js" "code" "ts" "code" "c" "code" "h" "code" "cpp" "code" "go" "code" "rs" "code" "sh" "code" "ino" "code" "json" "code" "yaml" "code" "yml" "code"
+}}
+<section class="prose file-list" aria-labelledby="files-heading">
+  <h2 id="files-heading">Files</h2>
+  <svg width="0" height="0" class="visually-hidden" aria-hidden="true">
+    <defs>
+      <path id="file-outline" d="M6 3h8l5 5v13H6z M14 3v5h5"/>
+      <symbol id="icon-file" viewBox="0 0 24 24"><use href="#file-outline"/></symbol>
+      <symbol id="icon-document" viewBox="0 0 24 24"><use href="#file-outline"/><path d="M9 12h7M9 15h7M9 18h4"/></symbol>
+      <symbol id="icon-sheet" viewBox="0 0 24 24"><use href="#file-outline"/><path d="M9 11h7v7H9z M9 14.5h7 M12.5 11v7"/></symbol>
+      <symbol id="icon-archive" viewBox="0 0 24 24"><use href="#file-outline"/><path d="M12 4v1.5m0 2V9m0 2v1.5"/><rect x="10.5" y="14" width="3" height="4" rx=".75"/></symbol>
+      <symbol id="icon-image" viewBox="0 0 24 24"><use href="#file-outline"/><circle cx="10.5" cy="12.5" r="1.25"/><path d="M8.5 18.5l3-3.5 2.5 2.5 1.25-1.25 1.75 2.25"/></symbol>
+      <symbol id="icon-audio" viewBox="0 0 24 24"><use href="#file-outline"/><circle cx="12.25" cy="17" r="1.75"/><path d="M14 17v-5.5l2 1"/></symbol>
+      <symbol id="icon-video" viewBox="0 0 24 24"><use href="#file-outline"/><path d="M10.5 12v6l5-3z"/></symbol>
+      <symbol id="icon-model" viewBox="0 0 24 24"><use href="#file-outline"/><path d="M12.5 11l3.5 2v4l-3.5 2-3.5-2v-4z M9 13l3.5 2 3.5-2 M12.5 15v4"/></symbol>
+      <symbol id="icon-code" viewBox="0 0 24 24"><use href="#file-outline"/><path d="M10.5 12.5L8.5 15l2 2.5 M14.5 12.5l2 2.5-2 2.5"/></symbol>
+    </defs>
+  </svg>
+  <ul>
+    {{ range . }}
+    {{ $u := urls.Parse .url }}
+    {{ $href := .url }}
+    {{ $size := .size }}
+    {{ if not $u.IsAbs }}
+      {{ with $.Resources.Get $u.Path }}
+        {{ $href = .RelPermalink }}
+        {{ if not $size }}{{ $size = len .Content }}{{ end }}
+      {{ else }}
+        {{ errorf "%s: file %q listed in front matter was not found in the project folder" $.File.Path $u.Path }}
+      {{ end }}
+    {{ end }}
+    {{ $ext := path.Ext $u.Path | strings.TrimPrefix "." | lower }}
+    <li>
+      <svg class="file-icon" aria-hidden="true" focusable="false"><use href="#icon-{{ index $kinds $ext | default "file" }}"/></svg>
+      <a href="{{ $href }}">{{ .title | default (path.Base $u.Path) }}</a>
+      <span class="meta">
+        {{- with $ext }}{{ upper . }}{{ end -}}
+        {{- with $size }}{{ if $ext }} · {{ end }}{{ partial "filesize.html" . }}{{ end -}}
+      </span>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
