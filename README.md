@@ -8,6 +8,16 @@ a handful of templates in `layouts/` and one stylesheet in `assets/css/`. Photos
 resized at build time by Hugo, so you can upload them straight from a camera or phone;
 only slimmed-down WebP copies are published.
 
+Text is set in the system's Helvetica Neue. The one webfont is a Latin subset of
+[JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) (`static/fonts/`, ~41 KB, OFL
+licence alongside) for code and metadata. To regenerate it from a new release:
+
+```sh
+uvx --from 'fonttools[woff]' pyftsubset JetBrainsMono-Regular.ttf --flavor=woff2 \
+  --layout-features='*' --output-file=static/fonts/jetbrains-mono.woff2 \
+  --unicodes='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-21FF,U+2212,U+2215,U+2500-259F,U+25A0-25FF,U+FEFF,U+FFFD'
+```
+
 ## Writing
 
 Everything goes through a pull request; `main` can't be pushed to directly. Merging a PR
