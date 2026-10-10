@@ -1,0 +1,8 @@
+{{- /* Returns the page bundle's photos that Hugo can resize, in filename order. */ -}}
+{{- $images := slice -}}
+{{- range .Resources.ByType "image" -}}
+  {{- if reflect.IsImageResourceProcessable . -}}
+    {{- $images = $images | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $images -}}

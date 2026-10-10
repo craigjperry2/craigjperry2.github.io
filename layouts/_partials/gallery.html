@@ -1,0 +1,27 @@
+{{- /*
+  Every photo in the project's folder, as a grid of small thumbnails linking to a
+  web-sized copy. Originals are never published. Captions come from the optional
+  `resources` front matter (src + title).
+*/ -}}
+{{ with partial "images.html" . }}
+<section class="gallery" aria-labelledby="gallery-heading">
+  <h2 id="gallery-heading">Gallery</h2>
+  <ul>
+    {{ range $i, $img := . }}
+    {{ $thumb := $img.Fill "320x240 webp" }}
+    {{ $thumb2x := $img.Fill "640x480 webp" }}
+    {{ $full := $img.Fit "1600x1600 webp" }}
+    {{ $caption := cond (ne $img.Title $img.Name) $img.Title "" }}
+    <li>
+      <figure>
+        <a href="{{ $full.RelPermalink }}">
+          <img src="{{ $thumb.RelPermalink }}" srcset="{{ $thumb.RelPermalink }} 1x, {{ $thumb2x.RelPermalink }} 2x" width="320" height="240"
+            alt="{{ with $caption }}{{ . }}{{ else }}{{ $.Title }}, photo {{ add $i 1 }}{{ end }}" loading="lazy" decoding="async">
+        </a>
+        {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+      </figure>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

@@ -1,0 +1,14 @@
+{{- /* A project as a card: cover photo (first image in the bundle), title, date and summary. */ -}}
+<div class="card">
+  {{ with partial "images.html" . | first 1 }}
+  {{ $img := index . 0 }}
+  {{ $sm := $img.Fill "400x250 webp" }}
+  {{ $lg := $img.Fill "800x500 webp" }}
+  <img src="{{ $sm.RelPermalink }}" srcset="{{ $sm.RelPermalink }} 400w, {{ $lg.RelPermalink }} 800w" sizes="(min-width: 40rem) 20rem, 100vw" width="400" height="250" alt="" loading="lazy" decoding="async">
+  {{ end }}
+  <div class="card-body">
+    <p class="card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+    <p class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2006" }}</time></p>
+    {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+  </div>
+</div>

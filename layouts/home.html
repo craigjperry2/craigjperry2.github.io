@@ -1,0 +1,39 @@
+{{ define "main" }}
+<div class="home">
+  <article class="prose about">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </article>
+
+  <div class="home-asides">
+    <aside class="recent-posts" aria-labelledby="recent-posts-heading">
+      <h2 id="recent-posts-heading">Recent writing</h2>
+      {{ with first 7 (where site.RegularPages "Section" "blog").ByDate.Reverse }}
+      <ol class="timeline">
+        {{ range . }}
+        <li>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+      </ol>
+      <p class="more"><a href="{{ "/blog/" | relURL }}">All posts</a></p>
+      {{ else }}
+      <p class="empty">No posts yet.</p>
+      {{ end }}
+    </aside>
+
+    <aside class="recent-projects" aria-labelledby="recent-projects-heading">
+      <h2 id="recent-projects-heading">Recent projects</h2>
+      {{ with first 3 (where site.RegularPages "Section" "projects").ByDate.Reverse }}
+      <ul class="cards">
+        {{ range . }}<li>{{ partial "project-card.html" . }}</li>{{ end }}
+      </ul>
+      <p class="more"><a href="{{ "/projects/" | relURL }}">All projects</a></p>
+      {{ else }}
+      <p class="empty">No projects yet.</p>
+      {{ end }}
+    </aside>
+  </div>
+</div>
+{{ end }}

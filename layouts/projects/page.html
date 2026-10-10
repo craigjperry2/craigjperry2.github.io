@@ -1,0 +1,18 @@
+{{ define "main" }}
+<article class="project">
+  <header class="prose page-header">
+    <h1>{{ .Title }}</h1>
+    <p class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2006" }}</time></p>
+    {{ with .Params.summary }}<p class="lede">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ partial "gallery.html" . }}
+
+  <div class="prose">
+    {{ .Content }}
+  </div>
+
+  {{ partial "links.html" . }}
+  {{ partial "files.html" . }}
+</article>
+{{ end }}

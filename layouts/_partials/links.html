@@ -1,0 +1,10 @@
+{{ with .Params.links }}
+<section class="prose link-list" aria-labelledby="links-heading">
+  <h2 id="links-heading">Links</h2>
+  <ul>
+    {{ range . }}
+    <li><a href="{{ .url }}">{{ .title | default .url }}</a> <span class="meta">{{ (urls.Parse .url).Host | strings.TrimPrefix "www." }}</span></li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

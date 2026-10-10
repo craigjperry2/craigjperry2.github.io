@@ -1,0 +1,58 @@
+name: Site
+
+# Every pull request is built (the "build" check must pass before merging).
+# Merging to main builds again and deploys to GitHub Pages.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Hugo
+        run: |
+          scripts/install-hugo "$RUNNER_TEMP/bin"
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      # Resized photos are cached so unchanged images aren't reprocessed on every build.
+      - name: Restore processed images
+        uses: actions/cache@v6
+        with:
+          path: resources/_gen
+          key: hugo-resources-${{ github.sha }}
+          restore-keys: hugo-resources-
+
+      - name: Build
+        run: hugo --gc --minify
+
+      - name: Upload site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: public
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
