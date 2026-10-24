@@ -42,6 +42,8 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: public
+          # Publishes static/.well-known/ (e.g. the Tesla Fleet API public key).
+          include-hidden-files: true
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
