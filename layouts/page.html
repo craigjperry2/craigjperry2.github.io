@@ -8,7 +8,26 @@
       {{ with .Params.topic }} · <span class="topic">{{ . }}</span>{{ end }}
     </p>
     {{ end }}
+    <p class="meta print-only">{{ .Permalink }}</p>
   </header>
+  {{ if ge (len .Fragments.HeadingsMap) 4 }}
+  <nav class="toc" aria-labelledby="toc-heading">
+    <h2 id="toc-heading">Contents</h2>
+    {{/* ToHTML wraps the list in its own <nav>; drop it so the landmark isn't nested. */}}
+    {{ .Fragments.ToHTML 2 4 false | replaceRE `</?nav[^>]*>` "" | safeHTML }}
+  </nav>
+  {{ end }}
   {{ .Content }}
 </article>
+{{ if eq .Section "blog" }}
+{{/* Section pages are listed newest first, so Next is the newer post. */}}
+<nav class="post-nav" aria-labelledby="post-nav-heading">
+  <h2 id="post-nav-heading">More writing</h2>
+  <ul>
+    {{ with .PrevInSection }}<li class="older"><a href="{{ .RelPermalink }}" rel="prev"><span class="meta">Older</span> {{ .Title }}</a></li>{{ end }}
+    {{ with .NextInSection }}<li class="newer"><a href="{{ .RelPermalink }}" rel="next"><span class="meta">Newer</span> {{ .Title }}</a></li>{{ end }}
+  </ul>
+  <p class="more"><a href="{{ "/blog/" | relURL }}">All posts</a></p>
+</nav>
+{{ end }}
 {{ end }}

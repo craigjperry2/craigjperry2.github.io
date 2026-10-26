@@ -9,7 +9,7 @@ aliases:
 Here's how I setup my [EMAX Nighthawk 280 Pro](http://blog.oscarliang.net/emax-nighthawk-pro-280-quadcopter/)
 with the latest version of [Cleanflight](http://cleanflight.com/) and [tuned the PIDs](https://github.com/cleanflight/cleanflight/blob/master/docs/PID%20tuning.md)).
 
-### Posts In This Series
+## Posts In This Series
 
 * [Setting Up Cleanflight](#) on an EMAX Nighthawk 280 Pro
 * Flashing the ESCs with BLHeli and configuring for best performance

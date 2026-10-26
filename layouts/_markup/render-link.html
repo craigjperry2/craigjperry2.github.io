@@ -1,0 +1,12 @@
+{{- /*
+  Markdown links, rendered as usual plus a data-url with the absolute address for web and site links.
+  The print stylesheet shows it after the link text, so links still lead somewhere on paper. Links
+  whose text is already the address don't get one.
+*/ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $abs := "" -}}
+{{- if in (slice "http" "https") $u.Scheme }}{{ $abs = .Destination }}{{ else if hasPrefix .Destination "/" }}{{ $abs = absURL .Destination }}{{ end -}}
+{{- $bare := `^(https?://)?(www\.)?|/$` -}}
+{{- if eq (replaceRE $bare "" $abs) (replaceRE $bare "" .PlainText) }}{{ $abs = "" }}{{ end -}}
+<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ with $abs }} data-url="{{ . }}"{{ end }}>{{ .Text }}</a>
+{{- /**/ -}}
