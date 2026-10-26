@@ -31,7 +31,7 @@ I created a new project in the [Google Developers Console](https://console.devel
 
 Next i created the AppEngine "application"  which is nothing more than some static files in a directory with the `app.yaml` file to tell AppEngine how to serve the app.
 
-#### Directory Structure
+### Directory Structure
 
     blog/
       .git/
@@ -40,7 +40,7 @@ Next i created the AppEngine "application"  which is nothing more than some stat
         blog/
         app.yaml
 
-#### app.yaml
+### app.yaml
 
     application: craigjperryblog
     version: 1
@@ -61,7 +61,7 @@ Next i created the AppEngine "application"  which is nothing more than some stat
 
 You can create a Pelican blog using the `pelican-quickstart` command but it creates a bunch of files i don't need. Instead, i just want the bare essentials: a `pelicanconf.py` file and a `content/` directory for my blog post sources.
 
-#### Directory Structure
+### Directory Structure
 
     blog/
       .git/
@@ -72,7 +72,7 @@ You can create a Pelican blog using the `pelican-quickstart` command but it crea
       content/
       pelicanconf.py
 
-#### pelicanconf.py
+### pelicanconf.py
 
     #!/usr/bin/env python
     # -*- coding: utf-8 -*- #
